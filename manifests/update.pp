@@ -43,15 +43,14 @@ define reprepro::update (
   } else {
     $filter_list = ""
   }
-
-  common::concatfilepart {"update-${name}":
+  
+  concat::fragment {"update-${name}":
     ensure  => $ensure,
-    manage  => $ensure ? { present => false, default => true, },
+    target  => "${reprepro::params::basedir}/${repository}/conf/updates",
     content => template("reprepro/update.erb"),
-    file    => "${reprepro::params::basedir}/${repository}/conf/updates",
     require => $filter_name ? {
-      ""      => Reprepro::Repository[$repository],
-      default => [Reprepro::Repository[$repository],Reprepro::Filterlist[$filter_name]],
+      ''      => undef,
+      default => Reprepro::Filterlist[$filter_name],
     }
   }
 

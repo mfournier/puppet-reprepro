@@ -8,6 +8,7 @@ Base class to install reprepro on debian
 class reprepro::debian {
 
   include reprepro::params
+  include concat::setup
 
   case $lsbdistcodename {
     squeeze: { 

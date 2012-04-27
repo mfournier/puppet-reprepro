@@ -94,4 +94,25 @@ define reprepro::repository (
       content => template("reprepro/incoming.erb");
   }
 
+  concat {"${reprepro::params::basedir}/${name}/conf/distributions":
+    owner => root,
+    group => root,
+    mode  => '0644',
+  }
+
+  concat {"${reprepro::params::basedir}/${name}/conf/updates":
+    owner => root,
+    group => root,
+    mode  => '0644',
+  }
+
+  # removed folders originally created by common::concatfilepart
+  file {["${reprepro::params::basedir}/${name}/conf/distributions.d",
+    "${reprepro::params::basedir}/${name}/conf/updates.d"]:
+      ensure  => absent,
+      purge   => true,
+      recurse => true,
+      force   => true,
+  }
+
 }
