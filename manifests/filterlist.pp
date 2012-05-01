@@ -29,9 +29,9 @@ Warning:
 
 */
 define reprepro::filterlist (
-  $ensure=present,
   $repository,
-  $packages
+  $packages,
+  $ensure=present
 ) {
 
   include reprepro::params
@@ -40,7 +40,7 @@ define reprepro::filterlist (
     ensure  => $ensure,
     owner   => root,
     group   => reprepro,
-    mode    => 0664,
-    content => template("reprepro/filterlist.erb"),
+    mode    => '0664',
+    content => template('reprepro/filterlist.erb'),
   }
 }

@@ -10,35 +10,35 @@ class reprepro::debian {
   include reprepro::params
   include concat::setup
 
-  case $lsbdistcodename {
-    squeeze: { 
-      package { "reprepro": 
+  case $::lsbdistcodename {
+    squeeze: {
+      package {'reprepro':
         ensure => 'latest';
       }
 
-      group { "reprepro":
+      group {'reprepro':
         ensure => present,
       }
 
-      user { "reprepro":
-        ensure  => "present",
-        home    => "${reprepro::params::basedir}",
-        shell   => "/bin/bash",
-        comment => "reprepro base directory",
+      user {'reprepro':
+        ensure  => 'present',
+        home    => $reprepro::params::basedir,
+        shell   => '/bin/bash',
+        comment => 'reprepro base directory',
       }
 
-      file {"${reprepro::params::basedir}":
+      file {$reprepro::params::basedir:
         ensure => directory,
-        owner  => "reprepro",
-        group  => "reprepro",
-        mode   => 0755,
+        owner  => 'reprepro',
+        group  => 'reprepro',
+        mode   => '0755',
       }
 
       file {"${reprepro::params::basedir}/.gnupg":
         ensure => directory,
-        owner  => "reprepro", 
-        group  => "reprepro",
-        mode   => 0700,
+        owner  => 'reprepro',
+        group  => 'reprepro',
+        mode   => '0700',
       }
     }
 

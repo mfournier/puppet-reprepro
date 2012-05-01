@@ -1,8 +1,8 @@
 class reprepro {
 
-  case $operatingsystem {
+  case $::operatingsystem {
     Debian: {
-      case $lsbdistcodename {
+      case $::lsbdistcodename {
         squeeze: { include reprepro::debian }
         default: { fail "reprepro is not available for ${operatingsystem}/${lsbdistcodename}"}
       }
