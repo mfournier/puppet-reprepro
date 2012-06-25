@@ -11,46 +11,46 @@ Parameters:
 - *filter_name*: a list of filenames in the format of dpkg --get-selections
 
 Requires:
-- Class["reprepro"]
+- Class['reprepro']
 
 Example usage:
 
-  reprepro::update {"lenny-backports":
+  reprepro::update {'lenny-backports':
     ensure      => present,
-    repository  => "dev",
+    repository  => 'dev',
     url         => 'http://backports.debian.org/debian-backports',
-    filter_name => "lenny-backports",
+    filter_name => 'lenny-backports',
   }
 
 */
 define reprepro::update (
-  $ensure=present,
   $repository,
   $url,
-  $verify_release="blindtrust",
-  $filter_action="",
-  $filter_name=""
+  $ensure=present,
+  $verify_release='blindtrust',
+  $filter_action='',
+  $filter_name=''
 ) {
 
   include reprepro::params
-  
-  if $filter_name != "" {
-    if $filter_action == "" {  
+
+  if $filter_name != '' {
+    if $filter_action == '' {
       $filter_list = "deinstall ${filter_name}-filter-list"
     } else {
       $filter_list = "${filter_action} ${filter_name}-filter-list"
     }
   } else {
-    $filter_list = ""
+    $filter_list = ''
   }
 
   common::concatfilepart {"update-${name}":
     ensure  => $ensure,
     manage  => $ensure ? { present => false, default => true, },
-    content => template("reprepro/update.erb"),
+    content => template('reprepro/update.erb'),
     file    => "${reprepro::params::basedir}/${repository}/conf/updates",
     require => $filter_name ? {
-      ""      => Reprepro::Repository[$repository],
+      ''      => Reprepro::Repository[$repository],
       default => [Reprepro::Repository[$repository],Reprepro::Filterlist[$filter_name]],
     }
   }
