@@ -29,7 +29,8 @@ define reprepro::update (
   $ensure=present,
   $verify_release='blindtrust',
   $filter_action='',
-  $filter_name=''
+  $filter_name='',
+  $components=''
 ) {
 
   include reprepro::params
