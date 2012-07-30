@@ -30,7 +30,8 @@ define reprepro::update (
   $ensure=present,
   $verify_release='blindtrust',
   $filter_action='',
-  $filter_name=''
+  $filter_name='',
+  $components=''
 ) {
 
   include reprepro::params
@@ -50,8 +51,8 @@ define reprepro::update (
     target  => "${reprepro::params::basedir}/${repository}/conf/updates",
     content => template('reprepro/update.erb'),
     require => $filter_name ? {
-      ''      => undef,
-      default => Reprepro::Filterlist[$filter_name],
+      ''      => Reprepro::Repository[$repository],
+      default => [Reprepro::Repository[$repository],Reprepro::Filterlist[$filter_name]],
     }
   }
 

@@ -1,6 +1,9 @@
 Name: <%= name %>
 Method: <%= url %>
 VerifyRelease: <%= verify_release %>
+<% if components != "" -%>
+Components: <%= components %>
+<% end -%>
 <% if filter_list != "" -%>
 FilterList: <%= filter_list %>
 <% end -%>
