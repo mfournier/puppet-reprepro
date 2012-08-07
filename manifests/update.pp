@@ -50,10 +50,6 @@ define reprepro::update (
     ensure  => $ensure,
     target  => "${reprepro::params::basedir}/${repository}/conf/updates",
     content => template('reprepro/update.erb'),
-    require => $filter_name ? {
-      ''      => Reprepro::Repository[$repository],
-      default => [Reprepro::Repository[$repository],Reprepro::Filterlist[$filter_name]],
-    }
   }
 
 }

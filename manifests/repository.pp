@@ -96,15 +96,17 @@ define reprepro::repository (
   }
 
   concat {"${reprepro::params::basedir}/${name}/conf/distributions":
-    owner => root,
-    group => root,
-    mode  => '0644',
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    require => File["${reprepro::params::basedir}/${name}/conf"],
   }
 
   concat {"${reprepro::params::basedir}/${name}/conf/updates":
-    owner => root,
-    group => root,
-    mode  => '0644',
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    require => File["${reprepro::params::basedir}/${name}/conf"],
   }
 
   # removed folders originally created by common::concatfilepart
