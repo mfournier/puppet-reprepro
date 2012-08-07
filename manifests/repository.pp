@@ -99,6 +99,7 @@ define reprepro::repository (
     owner   => root,
     group   => root,
     mode    => '0644',
+    force   => true,
     require => File["${reprepro::params::basedir}/${name}/conf"],
   }
 
@@ -106,6 +107,7 @@ define reprepro::repository (
     owner   => root,
     group   => root,
     mode    => '0644',
+    force   => true,
     require => File["${reprepro::params::basedir}/${name}/conf"],
   }
 
