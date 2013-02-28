@@ -18,6 +18,7 @@ class reprepro::debian {
 
       group {'reprepro':
         ensure => present,
+        system => true,
       }
 
       user {'reprepro':
@@ -26,6 +27,7 @@ class reprepro::debian {
         shell   => '/bin/bash',
         comment => 'reprepro base directory',
         gid     => 'reprepro',
+        system  => true,
         require => Group['reprepro'],
       }
 
