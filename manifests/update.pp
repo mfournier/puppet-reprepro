@@ -8,6 +8,7 @@ Parameters:
 - *ensure*: present/absent, defaults to present
 - *url*: a valid repository URL
 - *verify_release*: check the GPG signature Releasefile
+- *ignore_release*: allow to ignore the Release file (for bad repository)
 - *filter_action*: default action when something is not found in the list
 - *filter_name*: a list of filenames in the format of dpkg --get-selections
 
@@ -29,6 +30,7 @@ define reprepro::update (
   $url,
   $ensure=present,
   $verify_release='blindtrust',
+  $ignore_release='No',
   $filter_action='',
   $filter_name='',
   $components=''
