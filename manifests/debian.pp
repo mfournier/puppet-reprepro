@@ -10,10 +10,12 @@ class reprepro::debian {
   include reprepro::params
   include concat::setup
 
-  if ($::operatingsystem == 'Debian' and $::operatingsystemrelease >= 6) {
+  if ($::operatingsystem == 'Debian') and
+     (versioncmp($::operatingsystemrelease, 6) >= 0) {
     $has_reprepro = true
   }
-  elsif ($::operatingsystem == 'Ubuntu' and $::operatingsystemrelease >= 10) {
+  elsif ($::operatingsystem == 'Ubuntu') and
+        (versioncmp($::operatingsystemrelease, 10) >= 0) {
     $has_reprepro = true
   }
   else {
